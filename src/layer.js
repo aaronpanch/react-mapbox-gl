@@ -26,11 +26,13 @@ export default class Layer extends Component {
     paint: PropTypes.object,
     sourceOptions: PropTypes.object,
     layerOptions: PropTypes.object,
-    sourceId: PropTypes.string
+    sourceId: PropTypes.string,
+    sourceLayer: PropTypes.string
   };
 
   static defaultProps = {
     type: "symbol",
+    sourceLayer: '',
     layout: {},
     paint: {}
   };
@@ -136,12 +138,13 @@ export default class Layer extends Component {
 
   componentWillMount() {
     const { id, source } = this;
-    const { type, layout, paint, layerOptions, sourceId } = this.props;
+    const { type, layout, paint, layerOptions, sourceId, sourceLayer } = this.props;
     const { map } = this.context;
 
     const layer = {
       id,
       source: sourceId || id,
+      'source-layer': sourceLayer,
       type,
       layout,
       paint,
