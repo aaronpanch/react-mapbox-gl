@@ -27,7 +27,8 @@ export default class Layer extends Component {
     sourceOptions: PropTypes.object,
     layerOptions: PropTypes.object,
     sourceId: PropTypes.string,
-    sourceLayer: PropTypes.string
+    sourceLayer: PropTypes.string,
+    filter: PropTypes.arrayOf(PropTypes.string)
   };
 
   static defaultProps = {
@@ -138,7 +139,7 @@ export default class Layer extends Component {
 
   componentWillMount() {
     const { id, source } = this;
-    const { type, layout, paint, layerOptions, sourceId, sourceLayer } = this.props;
+    const { type, layout, paint, layerOptions, sourceId, sourceLayer, filter } = this.props;
     const { map } = this.context;
 
     const layer = {
@@ -148,6 +149,7 @@ export default class Layer extends Component {
       type,
       layout,
       paint,
+      filter,
       ...layerOptions
     };
 
