@@ -193,18 +193,16 @@ export default class ReactMapboxGl extends Component {
     const bearing = map.getBearing();
 
     const didZoomUpdate = (
-      this.props.zoom !== nextProps.zoom &&
-      nextProps.zoom !== map.getZoom()
+      this.props.zoom[0] !== nextProps.zoom[0]
     );
 
     const didCenterUpdate = (
-      this.props.center !== nextProps.center &&
-      nextProps.center !== map.getCenter()
+      this.props.center[0] !== nextProps.center[0] &&
+      this.props.center[1] !== nextProps.center[1]
     );
 
     const didBearingUpdate = (
-      this.props.bearing !== nextProps.bearing &&
-      nextProps.bearing !== map.getBearing()
+      this.props.bearing !== nextProps.bearing
     )
 
     if (didZoomUpdate || didCenterUpdate || didBearingUpdate) {
