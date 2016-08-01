@@ -180,19 +180,15 @@ var Layer = (_temp2 = _class = function (_Component) {
     var paint = _props.paint;
     var layerOptions = _props.layerOptions;
     var sourceId = _props.sourceId;
-    var sourceLayer = _props.sourceLayer;
-    var filter = _props.filter;
     var map = this.context.map;
 
 
     var layer = _extends({
       id: id,
       source: sourceId || id,
-      'source-layer': sourceLayer,
       type: type,
       layout: layout,
-      paint: paint,
-      filter: filter
+      paint: paint
     }, layerOptions);
 
     if (!sourceId) {
@@ -211,7 +207,10 @@ var Layer = (_temp2 = _class = function (_Component) {
 
 
     map.removeLayer(id);
-    map.removeSource(id);
+
+    if (!this.sourceId) {
+      map.removeSource(id);
+    }
 
     map.off("click", this.onClick);
     map.off("mousemove", this.onMouseMove);
@@ -277,12 +276,9 @@ var Layer = (_temp2 = _class = function (_Component) {
   paint: _react.PropTypes.object,
   sourceOptions: _react.PropTypes.object,
   layerOptions: _react.PropTypes.object,
-  sourceId: _react.PropTypes.string,
-  sourceLayer: _react.PropTypes.string,
-  filter: _react.PropTypes.arrayOf(_react.PropTypes.string)
+  sourceId: _react.PropTypes.string
 }, _class.defaultProps = {
   type: "symbol",
-  sourceLayer: '',
   layout: {},
   paint: {}
 }, _temp2);
