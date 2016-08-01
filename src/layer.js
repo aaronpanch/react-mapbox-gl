@@ -163,7 +163,10 @@ export default class Layer extends Component {
     const { map } = this.context;
 
     map.removeLayer(id);
-    map.removeSource(id);
+
+    if (!this.sourceId) {
+      map.removeSource(id);
+    }
 
     map.off("click", this.onClick);
     map.off("mousemove", this.onMouseMove);
