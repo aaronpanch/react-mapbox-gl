@@ -44,51 +44,17 @@ var Popup = (_temp2 = _class = function (_Component) {
     }), _temp), _possibleConstructorReturn(_this, _ret);
   }
 
-  Popup.prototype.componentWillMount = function componentWillMount() {
-    var div = this.div;
-    var popup = this.popup;
-    var map = this.context.map;
-    var _props = this.props;
-    var coordinates = _props.coordinates;
-    var children = _props.children;
-    var dangerouslySetInnerHTML = _props.dangerouslySetInnerHTML;
-    var text = _props.text;
+  Popup.prototype.componentDidMount = function componentDidMount() {
+    var _this2 = this;
 
-
-    if (children) {
-      popup.setDOMContent(div);
-    } else if (dangerouslySetInnerHTML) {
-      popup.setHTML(dangerouslySetInnerHTML);
-    } else {
-      popup.setText(text || "");
-    }
-
-    popup.setLngLat(coordinates);
-
-    (0, _reactDom.render)(children, div, function () {
-      popup.addTo(map);
+    (0, _reactDom.render)(this.props.children, this.div, function () {
+      _this2.popup.setDOMContent(_this2.div);
+      _this2.popup.addTo(_this2.context.map);
     });
   };
 
-  Popup.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-    var popup = this.popup;
-    var children = nextProps.children;
-    var coordinates = nextProps.coordinates;
-    var dangerouslySetInnerHTML = nextProps.dangerouslySetInnerHTML;
-    var text = nextProps.text;
-
-
-    if (!children) {
-      if (this.props.dangerouslySetInnerHTML && dangerouslySetInnerHTML !== this.props.dangerouslySetInnerHTML) {
-        popup.setHTML(dangerouslySetInnerHTML);
-      } else if (text !== this.props.text) {
-        popup.setText(text);
-      }
-    }
-
-    if (this.props.coordinates !== coordinates) {
-      popup.setLngLat(coordinates);
-    }
+  Popup.prototype.componentDidUpdate = function componentDidUpdate() {
+    (0, _reactDom.render)(this.props.children, this.div);
   };
 
   Popup.prototype.componentWillUnmount = function componentWillUnmount() {
@@ -100,6 +66,7 @@ var Popup = (_temp2 = _class = function (_Component) {
   };
 
   Popup.prototype.render = function render() {
+    this.popup.setLngLat(this.props.coordinates);
     return null;
   };
 

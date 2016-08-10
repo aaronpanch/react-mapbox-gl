@@ -32,54 +32,15 @@ export default class Popup extends Component {
     anchor: this.props.anchor
   });
 
-  componentWillMount() {
-    const { div, popup } = this;
-    const { map } = this.context;
-    const {
-      coordinates,
-      children,
-      dangerouslySetInnerHTML,
-      text
-    } = this.props;
-
-    if (children) {
-      popup.setDOMContent(div);
-    } else if (dangerouslySetInnerHTML) {
-      popup.setHTML(dangerouslySetInnerHTML);
-    } else {
-      popup.setText(text || "");
-    }
-
-    popup.setLngLat(coordinates);
-
-    render(children, div, () => {
-      popup.addTo(map);
+  componentDidMount() {
+    render(this.props.children, this.div, () => {
+      this.popup.setDOMContent(this.div);
+      this.popup.addTo(this.context.map);
     });
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { popup } = this;
-    const {
-      children,
-      coordinates,
-      dangerouslySetInnerHTML,
-      text
-    } = nextProps;
-
-    if (!children) {
-      if (
-        this.props.dangerouslySetInnerHTML &&
-        dangerouslySetInnerHTML !== this.props.dangerouslySetInnerHTML
-      ) {
-        popup.setHTML(dangerouslySetInnerHTML);
-      } else if (text !== this.props.text) {
-        popup.setText(text);
-      }
-    }
-
-    if (this.props.coordinates !== coordinates) {
-      popup.setLngLat(coordinates);
-    }
+  componentDidUpdate() {
+    render(this.props.children, this.div);
   }
 
   componentWillUnmount() {
@@ -89,6 +50,7 @@ export default class Popup extends Component {
   }
 
   render() {
+    this.popup.setLngLat(this.props.coordinates);
     return null;
   }
 }
