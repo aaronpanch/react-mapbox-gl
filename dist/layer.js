@@ -208,7 +208,7 @@ var Layer = (_temp2 = _class = function (_Component) {
 
     map.removeLayer(id);
 
-    if (!this.sourceId) {
+    if (!this.props.sourceId) {
       map.removeSource(id);
     }
 
